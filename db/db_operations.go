@@ -58,11 +58,24 @@ func DoneTaskInDB(db *sql.DB, taskID int) {
 	utils.CheckNilErr(err)
 	defer stmt.Close()
 
-	// Execute the prepared statement with task values
 	_, err = stmt.Exec(taskID)
 	utils.CheckNilErr(err)
 }
 
-func EditTaskInDB() {}
+func EditTaskInDB(db *sql.DB, editedTask string, taskID int) {
+	stmt, err := db.Prepare("UPDATE tasks SET title=? WHERE ID=?")
+	utils.CheckNilErr(err)
+	defer stmt.Close()
 
-func DeleteTaskFromDB() {}
+	_, err = stmt.Exec(editedTask, taskID)
+	utils.CheckNilErr(err)
+}
+
+func DeleteTaskFromDB(db *sql.DB, taskID int) {
+	stmt, err := db.Prepare("DELETE FROM tasks WHERE ID=?")
+	utils.CheckNilErr(err)
+	defer stmt.Close()
+
+	_, err = stmt.Exec(taskID)
+	utils.CheckNilErr(err)
+}
