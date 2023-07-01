@@ -37,7 +37,7 @@ func InitializeDB() (*sql.DB, error) {
 		CREATE TABLE IF NOT EXISTS tasks (
 			ID INTEGER PRIMARY KEY AUTOINCREMENT,
 			Title TEXT,
-			IsDone BOOLEAN
+			IsDone BOOLEAN DEFAULT FALSE
 		)
 	`)
 	utils.CheckNilErr(err)
