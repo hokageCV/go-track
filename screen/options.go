@@ -35,7 +35,7 @@ func AddTask(dbInstance *sql.DB) {
 	title = strings.TrimSpace(title)
 
 	db.CreateTaskInDB(dbInstance, title)
-	fmt.Println("Task added successfully!")
+	fmt.Println("Task added successfully!✅")
 }
 
 func MarkTaskDone(dbInstance *sql.DB) {
@@ -46,7 +46,7 @@ func MarkTaskDone(dbInstance *sql.DB) {
 	utils.CheckNilErr(err)
 
 	db.DoneTaskInDB(dbInstance, taskID)
-	fmt.Println("Task done successfully!")
+	fmt.Println("Task done successfully!✅")
 }
 
 func EditTask(dbInstance *sql.DB) {
@@ -63,7 +63,7 @@ func EditTask(dbInstance *sql.DB) {
 	editedTask = strings.TrimSpace(editedTask)
 
 	db.EditTaskInDB(dbInstance, editedTask, taskID)
-	fmt.Println("Task edited successfully!")
+	fmt.Println("Task edited successfully!✅")
 }
 
 func DeleteTask(dbInstance *sql.DB) {
@@ -74,7 +74,7 @@ func DeleteTask(dbInstance *sql.DB) {
 	utils.CheckNilErr(err)
 
 	db.DeleteTaskFromDB(dbInstance, taskID)
-	fmt.Println("Task deleted successfully!")
+	fmt.Println("Task deleted successfully!✅")
 }
 
 func Exit() {
