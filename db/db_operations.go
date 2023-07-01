@@ -37,7 +37,7 @@ func DisplayTasksFromDB(db *sql.DB) {
 
 }
 
-func CreateTaskInDB(db *sql.DB, task Task) error {
+func CreateTaskInDB(db *sql.DB, taskTitle string) {
 
 	// instead of writing values into query, binding it using ? to avoid sql injection
 
@@ -47,10 +47,9 @@ func CreateTaskInDB(db *sql.DB, task Task) error {
 	defer stmt.Close()
 
 	// Execute statement with user values
-	_, err = stmt.Exec(task.Title, false)
+	_, err = stmt.Exec(taskTitle, false)
 	utils.CheckNilErr(err)
 
-	return nil
 }
 
 func DoneTaskInDB(db *sql.DB, taskID int) {
