@@ -5,6 +5,7 @@ import (
 	"database/sql"
 	"fmt"
 	"os"
+	"strconv"
 	"strings"
 
 	"github.com/hokageCV/gotrack/db"
@@ -39,11 +40,16 @@ func AddTask(dbInstance *sql.DB) {
 }
 
 func MarkTaskDone(dbInstance *sql.DB) {
+	reader := bufio.NewReader(os.Stdin)
 
-	var taskID int
 	fmt.Println("Enter task ID:")
-	_, err := fmt.Scanf("%d", &taskID)
+	taskIDStr, err := reader.ReadString('\n')
 	utils.CheckNilErr(err)
+
+	taskIDStr = strings.TrimSpace(taskIDStr)
+
+	taskID, errr := strconv.Atoi(taskIDStr)
+	utils.CheckNilErr(errr, "Invalid task ID! Please enter a valid number.")
 
 	db.DoneTaskInDB(dbInstance, taskID)
 	fmt.Println("Task done successfully!✅")
@@ -55,12 +61,15 @@ func EditTask(dbInstance *sql.DB) {
 	fmt.Println("Enter new task title: ")
 	editedTask, err := reader.ReadString('\n')
 	utils.CheckNilErr(err)
-
-	var taskID int
-	fmt.Println("Enter task ID:")
-	_, error := fmt.Scanf("%d", &taskID)
-	utils.CheckNilErr(error)
 	editedTask = strings.TrimSpace(editedTask)
+
+	fmt.Println("Enter task ID:")
+	taskIDStr, err := reader.ReadString('\n')
+	utils.CheckNilErr(err)
+
+	taskIDStr = strings.TrimSpace(taskIDStr)
+	taskID, errr := strconv.Atoi(taskIDStr)
+	utils.CheckNilErr(errr, "Invalid task ID! Please enter a valid number.")
 
 	db.EditTaskInDB(dbInstance, editedTask, taskID)
 	fmt.Println("Task edited successfully!✅")
@@ -68,10 +77,14 @@ func EditTask(dbInstance *sql.DB) {
 
 func DeleteTask(dbInstance *sql.DB) {
 
-	var taskID int
+	reader := bufio.NewReader(os.Stdin)
 	fmt.Println("Enter task ID:")
-	_, err := fmt.Scanf("%d", &taskID)
+	taskIDStr, err := reader.ReadString('\n')
 	utils.CheckNilErr(err)
+
+	taskIDStr = strings.TrimSpace(taskIDStr)
+	taskID, errr := strconv.Atoi(taskIDStr)
+	utils.CheckNilErr(errr, "Invalid task ID! Please enter a valid number.")
 
 	db.DeleteTaskFromDB(dbInstance, taskID)
 	fmt.Println("Task deleted successfully!✅")
