@@ -8,6 +8,7 @@ import (
 	"strconv"
 	"strings"
 
+	"github.com/gen2brain/beeep"
 	"github.com/hokageCV/gotrack/db"
 	"github.com/hokageCV/gotrack/utils"
 )
@@ -52,6 +53,12 @@ func MarkTaskDone(dbInstance *sql.DB) {
 	utils.CheckNilErr(errr, "Invalid task ID! Please enter a valid number.")
 
 	db.DoneTaskInDB(dbInstance, taskID)
+
+	er := beeep.Beep(beeep.DefaultFreq, beeep.DefaultDuration)
+	if er != nil {
+		panic(er)
+	}
+
 	fmt.Println("Task done successfully!✅")
 }
 
